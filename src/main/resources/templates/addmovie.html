@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movie form</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Here you can give the movie information</h1>
+	<p>Movie name, movie category</p>
+	<form action="#" th:action="@{/addmovie}"  th:object= ${movie} method="post">
+	<p>Movie name: <input type="text" th:field="${movie.name}" /></p>
+	
+	<label for="categorylist">Movies category</label>
+	<select id="categorylist" th:field="*{category}" class="form-control">
+    <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+	</select>
+	<input type="submit" value="Submit" />
+	</form>
+    
+</body>
+</html>
