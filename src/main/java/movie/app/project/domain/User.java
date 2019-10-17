@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Data //luo attribuuteille getterit ja setterit.
 @Entity
 public class User {
-	//entity for application endusers
+
+		//entity for application endusers
 	//Attributes: username (unique), password,role
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +33,13 @@ public class User {
 		
 		@Column(name = "role", nullable = false)
 		private String role;
+		
+//		public User(String username, String password, String role) {
+//			
+//			this.username = username;
+//			this.passwordHass = password;
+//			this.role = role;
+//		}
 
 	}
 

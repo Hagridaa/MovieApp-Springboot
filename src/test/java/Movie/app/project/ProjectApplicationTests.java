@@ -21,7 +21,7 @@ public class ProjectApplicationTests {
 	
 	@Test
 	public void createNewMovie() {
-		Movie movie = new Movie(null, "Joker", new Category(null, "Komedi"));
+		Movie movie = new Movie("Joker", new Category("Drama"));
 		//repository.save(movie);
 		//assertThat(movie.getId()).isNotNull();
 

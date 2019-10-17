@@ -12,11 +12,11 @@ import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+//Lombok
+@Entity
 @NoArgsConstructor //luo luokalle parametrittoman konstruktorin
 @AllArgsConstructor //luo luokalle kaikki attribuutit sisältävän konstruktorin
 @Data //luo attribuuteille getterit ja setterit.
-@Entity
 public class Category {
 
 	@Id
@@ -26,4 +26,12 @@ public class Category {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
 	private List<Movie> movies;
+	
+	public Category(String name) {
+		this.name = name;
+	}
+
+	public Category() {
+		
+	}
 }

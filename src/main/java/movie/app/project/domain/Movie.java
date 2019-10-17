@@ -30,6 +30,12 @@ public class Movie {
     @JoinColumn(name = "categoryId")
     private Category category;
 	
+//	public Movie(String name, Category category) {
+//		this.name = name;
+//		this.category = category;
+//	}
+
+	
 }
 
 
