@@ -19,11 +19,5 @@ public class ProjectApplicationTests {
 	@Autowired
 	private MovieRepository repository;
 	
-	@Test
-	public void createNewMovie() {
-		Movie movie = new Movie("Joker", new Category("Drama"));
-		//repository.save(movie);
-		//assertThat(movie.getId()).isNotNull();
 
-}
 }

@@ -9,14 +9,12 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor //luo luokalle parametrittoman konstruktorin
-@AllArgsConstructor //luo luokalle kaikki attribuutit sisältävän konstruktorin
-@Data //luo attribuuteille getterit ja setterit.
+
+//@NoArgsConstructor //luo luokalle parametrittoman konstruktorin
+//@AllArgsConstructor //luo luokalle kaikki attribuutit sisältävän konstruktorin
+//@Data //luo attribuuteille getterit ja setterit.
 @Entity
 public class Movie {
 
@@ -29,11 +27,46 @@ public class Movie {
 	@JsonIgnore
     @JoinColumn(name = "categoryId")
     private Category category;
-	
-//	public Movie(String name, Category category) {
-//		this.name = name;
-//		this.category = category;
-//	}
+
+	public Movie(Long id, String name, Category category) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.category = category;
+	}
+
+	public Movie() {
+		super();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", name=" + name + ", category=" + category + "]";
+	}
 
 	
 }

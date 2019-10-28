@@ -31,17 +31,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 @Override
 protected void configure(HttpSecurity http) throws Exception{
 	http
-	.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
+	.authorizeRequests().antMatchers("/css/**","/","/login","/logout","/webjars/**").permitAll() // Enable css when logged out
+	   .anyRequest().authenticated()
     .and()
-	//.authorizeRequests().antMatchers("/delete/{id}","/edit/{id}").hasAuthority("ADMIN")
-     //.anyRequest().authenticated()
- 	//.and()
- .formLogin()
-     //.loginPage("/login")
+	.authorizeRequests().antMatchers("/delete/{id}","/edit/{id}","/movielist","/addmovie").hasAuthority("ADMIN")
+	.and()
+	.authorizeRequests().antMatchers("/addmovie").hasAuthority("USER")
+	.and()
+	.authorizeRequests().antMatchers("/movielist").hasAuthority("USER")
+ 	.and()
+ .formLogin().
+ loginPage("/login")
      .defaultSuccessUrl("/movielist")
-     .permitAll()
      .and()
  .logout()
+ .logoutSuccessUrl("/")
      .permitAll();	
 	
 }

@@ -12,13 +12,19 @@
 <div class="col-md-4">
 		<h1>Movies</h1>
 	</div>
-	<div class="col-md-4">
+	<!--  <div class="col-md-4">
 		<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-	</div>
 
+	<div class="col-md-4" style="padding:20px 0">
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out" class="btn btn-danger"/>
-		</form>
+		</form>	</div>-->
+		
+		<!-- <form th:action="@{/login}" method="post">>
+			<input type="submit" value="Sign In" class="btn btn-danger"/>
+		</form></div> -->
+		<a href="/login" class="btn btn-success">Login</a>
+		 <!--<a href="/logout" class="btn btn-success">Logout</a>-->
 	
 	<h1>List of movies</h1>
 	<table class="table table-striped">
@@ -26,8 +32,7 @@
 			<th>id</th>
 			<th>name</th>
 			<th>category</th>
-			<th sec:authorize="hasAuthority('ADMIN')">edit </th>
-			<th sec:authorize="hasAuthority('ADMIN')">delete </th>
+			<th sec:authorize="hasAuthority('ADMIN')"> </th>
 		</tr>
 
 		<tr th:each="movie : ${movies}">
@@ -35,12 +40,12 @@
 			<td th:text="${movie.name}">title</td>
 			<td th:text="${movie.category.name}"></td>
 			
-			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${movie.id})}" class="btn btn-danger">Edit</a></td>	
-			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${movie.id})}" class="btn btn-danger">Delete</a></td>	
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-danger">Edit</a></td>	
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>	
 		</tr>
 		
 	</table>
-	<a href="addmovie" class="btn btn-success">Add Movie</a>
+	<!--  <a href="addmovie" class="btn btn-success">Add Movie</a>-->
 	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 	

@@ -25,13 +25,29 @@ public class MovieController {
 	@Autowired
 	MovieRepository movieRepository;
 	
+	@RequestMapping(value="/login")
+    public String index() {	
+        return "login";
+    }
+	
 	@Autowired
 	CategoryRepository categoryRepository;
 	private static final Logger log = LoggerFactory.getLogger(MovieController.class);
 	
+	@RequestMapping(value = "/" , method = RequestMethod.GET)
+	public String getMoviesNow(Model model) {
+		List<Movie> movies = (List<Movie>) movieRepository.findAll();//haeta tietokannasta kirjat
+		//välitämodelin avulla elokuvalista templatelle nähtävästi
+		model.addAttribute("movies", movies);// välitetään lista templatelle model-olion avulla
+		System.out.println("tietokannasta elokuvat ovat" + movies);
+		return "index";
+		// DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi booklist.html-template
+		// joka prosessoidaan palvelimella
+		}
 	
 	
-	// tyhjän kirjalomakkeen muodostaminen
+	
+	// tyhjän lomakkeen muodostaminen
 	@RequestMapping (value = "/addmovie", method = RequestMethod.GET)
 	public String getNewMovieForm(Model model) {
 		model.addAttribute("movie", new Movie()); //luodaan tyhjä movie- olio
@@ -50,13 +66,18 @@ public class MovieController {
 	//listaaminen
 	@RequestMapping(value = "/movielist" , method = RequestMethod.GET)
 	public String getMovies(Model model) {
-		List<Movie> movies = (List<Movie>) movieRepository.findAll();
+		List<Movie> movies = (List<Movie>) movieRepository.findAll();//haeta tietokannasta kirjat
+		//välitämodelin avulla elokuvalista templatelle nähtävästi
+		model.addAttribute("movies", movies);// välitetään lista templatelle model-olion avulla
+		System.out.println("tietokannasta elokuvat ovat" + movies);
 		return "movielist";
+		// DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi booklist.html-template
+		// joka prosessoidaan palvelimella
 }
 	
 	//delete
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteMovie(@PathVariable("id") Long movieId, Model model) {
 		movieRepository.deleteById(movieId);
 		return "redirect:../movielist";

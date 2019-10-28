@@ -6,13 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor //luo luokalle parametrittoman konstruktorin
-@AllArgsConstructor //luo luokalle kaikki attribuutit sisältävän konstruktorin
-@Data //luo attribuuteille getterit ja setterit.
+
+//@NoArgsConstructor //luo luokalle parametrittoman konstruktorin
+//@AllArgsConstructor //luo luokalle kaikki attribuutit sisältävän konstruktorin
+//@Data //luo attribuuteille getterit ja setterit.
 @Entity
 public class User {
 
@@ -33,6 +31,45 @@ public class User {
 		
 		@Column(name = "role", nullable = false)
 		private String role;
+		public User(Long id, String username, String passwordHass, String role) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.passwordHass = passwordHass;
+			this.role = role;
+		}
+		public User() {
+			super();
+		}
+		public Long getId() {
+			return id;
+		}
+		public void setId(Long id) {
+			this.id = id;
+		}
+		public String getUsername() {
+			return username;
+		}
+		public void setUsername(String username) {
+			this.username = username;
+		}
+		public String getPasswordHass() {
+			return passwordHass;
+		}
+		public void setPasswordHass(String passwordHass) {
+			this.passwordHass = passwordHass;
+		}
+		public String getRole() {
+			return role;
+		}
+		public void setRole(String role) {
+			this.role = role;
+		}
+		@Override
+		public String toString() {
+			return "User [id=" + id + ", username=" + username + ", passwordHass=" + passwordHass + ", role=" + role
+					+ "]";
+		}
 		
 //		public User(String username, String password, String role) {
 //			
@@ -41,5 +78,6 @@ public class User {
 //			this.role = role;
 //		}
 
+		
 	}
 

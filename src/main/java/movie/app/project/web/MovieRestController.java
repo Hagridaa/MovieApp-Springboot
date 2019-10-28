@@ -31,10 +31,10 @@ public class MovieRestController {
 		//Create REST service that return all movies (JSON)
 		//Create a method to controller
 		//Ignore one-to-many link from JSON
-		//@RequestMapping(value="/movielist",method = RequestMethod.GET)
-		//public @ResponseBody List<Movie> movielistRest() {
-			//return(List<Movie>) movieRepository.findAll();
-		//}
+		@RequestMapping(value="/api/movielist",method = RequestMethod.GET)
+		public @ResponseBody List<Movie> movielistRest() {
+			return(List<Movie>) movieRepository.findAll();
+		}
 		
 		//b.) Create REST service that return one book by id (JSON)
 		//Create a method to controller
