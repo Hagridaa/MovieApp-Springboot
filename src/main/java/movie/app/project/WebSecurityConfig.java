@@ -11,13 +11,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import movie.app.project.web.UserDetailServiceImpl;
 
-//b. Add Spring Security configuration class which will secure all URLs (requires
-	//authentication in all URLs) 
+ 
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
-//aktivoi apring aecurity web service tuen
+//aktivoi spring security web service tuen
 
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 @Override
 protected void configure(HttpSecurity http) throws Exception{
 	http
-	.authorizeRequests().antMatchers("/css/**","/","/login","/logout","/webjars/**").permitAll() // Enable css when logged out
+	.authorizeRequests().antMatchers("/css/**","/api/**","/","/login","/logout","/webjars/**").permitAll() // Enable css when logged out
 	   .anyRequest().authenticated()
     .and()
 	.authorizeRequests().antMatchers("/delete/{id}","/edit/{id}","/movielist","/addmovie").hasAuthority("ADMIN")

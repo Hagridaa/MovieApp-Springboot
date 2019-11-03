@@ -1,13 +1,18 @@
 package movie.app.project.web;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,8 +41,8 @@ public class MovieController {
 	
 	@RequestMapping(value = "/" , method = RequestMethod.GET)
 	public String getMoviesNow(Model model) {
-		List<Movie> movies = (List<Movie>) movieRepository.findAll();//haeta tietokannasta kirjat
-		//välitämodelin avulla elokuvalista templatelle nähtävästi
+		List<Movie> movies = (List<Movie>) movieRepository.findAll();//haeta tietokannasta elokuvat
+		//välitä modelin avulla elokuvalista templatelle nähtävästi
 		model.addAttribute("movies", movies);// välitetään lista templatelle model-olion avulla
 		System.out.println("tietokannasta elokuvat ovat" + movies);
 		return "index";
@@ -56,22 +61,28 @@ public class MovieController {
 	}
 	
 	//lomakkeen tietojen vastaanotto ja tallennus kantaa (H2)
+	
 	@RequestMapping(value = "/addmovie", method = RequestMethod.POST)
-	public String add(Movie movie) {
-		movieRepository.save(movie);
-		return "redirect:movielist";
+	public String add(@Valid Movie movie, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("movie",movie);
+			model.addAttribute("categories", categoryRepository.findAll());
+			return "addmovie";
+		}
+			movieRepository.save(movie);
+			return ("redirect:movielist");
 	}
 	
 	
 	//listaaminen
 	@RequestMapping(value = "/movielist" , method = RequestMethod.GET)
 	public String getMovies(Model model) {
-		List<Movie> movies = (List<Movie>) movieRepository.findAll();//haeta tietokannasta kirjat
-		//välitämodelin avulla elokuvalista templatelle nähtävästi
+		List<Movie> movies = (List<Movie>) movieRepository.findAll();//haeta tietokannasta elokuvat
+		//välitä modelin avulla elokuvalista templatelle nähtävästi
 		model.addAttribute("movies", movies);// välitetään lista templatelle model-olion avulla
 		System.out.println("tietokannasta elokuvat ovat" + movies);
 		return "movielist";
-		// DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi booklist.html-template
+		// DispatherServlet saa tämän template-nimen ja kutsuu seuraavaksi movielist.html-template
 		// joka prosessoidaan palvelimella
 }
 	
@@ -84,6 +95,29 @@ public class MovieController {
 	}
 	
 	//tietojen muokkaaminen
+	//haetaan annettu id kuten delete toiminnossa getillä
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+	public String editMovie(@PathVariable("id") Long movieId, Model model) {
+		//etsitään id:n avulla muokattavan movien tiedot
+		//Optional vaihtoehdolla voi tehdä niin, että jos tietoa ei löydykkään niin sovellus ei kaadu
+		Optional<Movie> foundedMovie = movieRepository.findById(movieId);
+		model.addAttribute("foundedmovie", foundedMovie); //// välitetään lista templatelle model-olion avulla
+		model.addAttribute("categories", categoryRepository.findAll());
+		return "edit";
+	}
+	//Päivitys, haetaan kannasta tiedot ja takaisin update komennolla ei inserttinä ette itee uutta
+	//Lomakkeen tietojen vastaanotto ja tallennus kantaan
+	@RequestMapping(value = "/editmovie",method = RequestMethod.POST)
+	public String update(Movie movie) {
+		log.info("Tallennetaan elokuva: " + movie.toString());
+		if
+		(movieRepository.existsById(movie.getId())) {
+			log.info("Tallennetaan elokuva: " + movie.toString());
+				movieRepository.save(movie);
+		}
+					return "redirect:../movielist";
+}
 }
 
 

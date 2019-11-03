@@ -28,18 +28,17 @@ public class MovieRestController {
 		CategoryRepository categoryRepository;
 		private static final Logger log = LoggerFactory.getLogger(MovieController.class);
 		
-		//Create REST service that return all movies (JSON)
-		//Create a method to controller
-		//Ignore one-to-many link from JSON
+		//REST service that return all movies (JSON)
+		
 		@RequestMapping(value="/api/movielist",method = RequestMethod.GET)
-		public @ResponseBody List<Movie> movielistRest() {
-			return(List<Movie>) movieRepository.findAll();
+		public Iterable<Movie> movielistRest() {
+			return movieRepository.findAll();
+			
 		}
 		
-		//b.) Create REST service that return one book by id (JSON)
-		//Create a method to controller
-		//Use path variable to get book id
-		@RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+		//REST service that return one book by id (JSON)
+		//path variable to get book id
+		@RequestMapping(value="/api/movie/{id}", method = RequestMethod.GET)
 		public @ResponseBody Optional<Movie> findBookRest(@PathVariable("id") Long movieId) {
 		return movieRepository.findById(movieId);
 		}
