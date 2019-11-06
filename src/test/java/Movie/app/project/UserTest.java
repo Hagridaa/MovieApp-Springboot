@@ -19,7 +19,7 @@ import movie.app.project.domain.User;
 
 		@Test
 		public void createNewUser() {
-			//User user1 = new User(null, "user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
+			
 			User user3 = new User(null, "user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			System.out.println("tulosta testi user3: " + user3.toString());
 			assertThat(user3.getUsername().isEmpty());

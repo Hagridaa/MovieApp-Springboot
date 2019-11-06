@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -32,8 +33,8 @@ public class MovieRepositoryTest {
 	
 	  @Test
 	    public void findByName() {
-		  List<Movie> movies = (List<Movie>)mrepository.findByName("Joker");
-	        assertThat(movies.get(0).getName()).isEqualTo("Joker");
+		  Optional<Movie> movies = mrepository.findByName("Joker");
+	        assertThat(movies.get().getName()).isEqualTo("Joker");
 	        
 	  }
 	        

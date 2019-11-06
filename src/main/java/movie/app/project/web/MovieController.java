@@ -16,7 +16,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import movie.app.project.domain.Answer;
+import movie.app.project.domain.AnswerRepository;
 import movie.app.project.domain.CategoryRepository;
 import movie.app.project.domain.Movie;
 import movie.app.project.domain.MovieRepository;
@@ -117,6 +120,48 @@ public class MovieController {
 				movieRepository.save(movie);
 		}
 					return "redirect:../movielist";
+}
+	
+	//search by name
+	@RequestMapping(value = "/searchmovie", method = RequestMethod.POST)
+	public String searchByName(@RequestParam (value = "name") String name, Model model) {
+		log.info("Haettava elokuva: " + name);
+		Optional<Movie> foundedMovie = movieRepository.findByName(name);
+		log.info("Löydetty elokuva: " + foundedMovie.toString());
+		model.addAttribute("foundedmovie", foundedMovie.get().getName());
+	    return "movielist";
+	}
+	
+	@Autowired
+	AnswerRepository answerRepository;
+	
+	//palautteen anto, answer
+	// tyhjän lomakkeen muodostaminen
+	@RequestMapping (value = "/feedback", method = RequestMethod.GET)
+	public String getNewFeedbackForm(Model model) {
+		model.addAttribute("answer", new Answer()); //luodaan tyhjä vastaus- olio
+		return "feedback";
+	}
+	
+	//palautteen tietojen vastaanotto ja tallennus kantaa (H2)
+	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
+	public String add(Answer answer, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("answer",answer);
+			return "feedback";
+		}
+			answerRepository.save(answer);
+			return ("redirect:feedbacklist");
+	}
+	
+	//vastausten listaaminen
+		@RequestMapping(value = "/feedbacklist" , method = RequestMethod.GET)
+		public String getAnswers(Model model) {
+			List<Answer> answers = (List<Answer>) answerRepository.findAll();//haeta tietokannasta vastaukset
+			//välitä modelin avulla elokuvalista templatelle nähtävästi
+			model.addAttribute("answers", answers);// välitetään lista templatelle model-olion avulla
+			System.out.println("tietokannasta vastaukset ovat" + answers);
+			return "feedbacklist";
 }
 }
 

@@ -13,12 +13,21 @@
 		<h1>Movies</h1>
 	</div>
 	<div class="col-md-4">
-		<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+		<h3 th:inline="text" th:text = "#{welcome.text}">[[${#httpServletRequest.remoteUser}]]</h3>
 	</div>
 
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out" class="btn btn-danger"/>
 		</form>
+		
+		
+		<h2>Search for movies</h2>
+		<form th:object="${movie}" th:action="@{/searchmovie}" method="post">
+        <input type="text" name="name" id="name"/>
+        <input type="submit" value="Search"/>
+    	</form>
+    	<p th:text="${foundedmovie}"></p>
+    	
 	
 	<h1>List of movies</h1>
 	<table class="table table-striped">
