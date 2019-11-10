@@ -11,18 +11,15 @@
 <body>
 <div class="col-md-4">
 		<h1>Feedback</h1>
-
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-danger"/>
-		</form>
+<a href="/" class="btn btn-success">Back home</a>
 	
 	<h1>List of feedback</h1>
 	<table class="table table-striped">
 		
 
-		<tr th:each="answer : ${answers}">
-			<td th:text="${answer.id}">id</td>
-			<td th:text="${answer.text}">title</td>	
+		<tr th:each="feedback : ${feedbacks}">
+			<td th:text="${feedback.id}">id</td>
+			<td th:text="${feedback.text}">title</td>	
 		</tr>
 		</table>
 	</div>

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
 public class Internationalization implements WebMvcConfigurer {
+	//default kielen asetus tässä
 @Bean
 public SessionLocaleResolver localeResolver( ) {
 	SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
@@ -20,6 +21,7 @@ public SessionLocaleResolver localeResolver( ) {
 	return sessionLocaleResolver;
 }
 
+//tulkitsee
 @Bean
 public LocaleChangeInterceptor localeChangeInterceptor() {
    LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();

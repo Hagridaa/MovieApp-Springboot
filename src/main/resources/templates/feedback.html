@@ -7,9 +7,8 @@
 </head>
 <body>
 <h1>Here you can give feedback about the app</h1>
-	<!-- <p>Movie name, movie category</p>
-	<p>Movie name: <input type="text" th:field="${movie.name}" /></p> -->
-<form action="#" th:action="@{/feedback}"  th:object= ${answer} method="post">
+	
+<form action="#" th:action="@{/feedback}"  th:object= ${feedback} method="post">
 <table class="table table-striped table-hover form-narrow ">
 
 	
@@ -21,7 +20,7 @@
                     </thead>
                     <tbody>
 	                    <tr>
-	                    	<td><input type="text" th:field="${answer.text}" /></td>
+	                    	<td><input type="text" th:field="${feedback.text}" /></td>
 	                    	<td th:if="${#fields.hasErrors('text')}" th:errors="*{name}">Generic Error</td>
 	                    </tr>
                     </tbody>

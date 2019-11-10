@@ -7,8 +7,7 @@
 </head>
 <body>
 <h1>Here you can give the movie information</h1>
-	<!-- <p>Movie name, movie category</p>
-	<p>Movie name: <input type="text" th:field="${movie.name}" /></p> -->
+	
 <form action="#" th:action="@{/addmovie}"  th:object= ${movie} method="post">
 <table class="table table-striped table-hover form-narrow ">
 
@@ -37,14 +36,6 @@
 		<input type="submit" value="Submit" class="btn btn-success btn-lg"/>
 		</form>
 		
-	<!-- 	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Generic Error</p> -->
-	
-	<!-- <label for="categorylist">Movies category</label>
-	<select id="categorylist" th:field="*{category}" class="form-control">
-    <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option> 
-	</select>
-	-->
-	
 	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 	

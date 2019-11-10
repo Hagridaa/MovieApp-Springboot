@@ -3,21 +3,41 @@
 <head>
     <title>Edit movie</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
 </head>
-<body>
+<body class="text-center">
 	<h1>Here you can edit requested movie</h1>
-	<p>name, category</p>
+	<p>you can edit name, category</p>
+	
 	<form action="#" th:action="@{/editmovie/}"  th:object= ${foundedmovie} method="post">
-	<p>Movie name: <input type="text" th:field="${foundedmovie.name}" /></p>
-	<p>Movie category: <input type="text" th:field="${foundedmovie.category.name}" /></p>
-	<select id="categorylist" th:field="*{category}" class="form-control">
+	
+	<table class="table table-striped table-hover form-narrow ">
+	<thead>
+	<tr>
+	<td>Movie name:</td>
+	<td>Movie category:</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td> <input type="text" th:field="${foundedmovie.name}" /></td>
+	<td> <input type="text" th:field="${foundedmovie.category.name}" /></td>
+	<td><input type="hidden" th:field="${foundedmovie.id}" /></td>
+	<td><input type="hidden" th:field="${foundedmovie.category.categoryId}" /></td>
+	<td>
+	<select id="categorylist" th:field="*{category}" class="form-control" >
     <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
 	</select>
-	<input type="hidden" th:field="${foundedmovie.id}" />
-	<input type="hidden" th:field="${foundedmovie.category.categoryId}" />
+	</td>
 	
-	<input type="submit" value="Submit" />
+	
+	</tr>
+	</tbody>
+	</table>
+	
+	<input type="submit" value="Submit" class="btn btn-success btn-lg"/>
 	</form>
-    
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

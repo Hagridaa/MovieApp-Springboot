@@ -23,11 +23,6 @@ public class ProjectApplication {
 	
 	private static final Logger log = LoggerFactory.getLogger(ProjectApplication.class);  //uusi loggeriattribuutti
 
-
-	   //@Override
-	  // public void addViewControllers(ViewControllerRegistry registry) {
-	     //  registry.addRedirectViewController("/", "/movielist");
-	   //}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
@@ -46,8 +41,7 @@ public class ProjectApplication {
 			movieRepository.save(new Movie(null, "Joker", categoryRepository.findByName("Fantasy").get(0)));
 			movieRepository.save(new Movie(null, "Harry Potter", categoryRepository.findByName("Fantasy").get(0)));	
 			
-//			
-			//Create users: admin/admin user/user
+
 			//(String username, String passwordHass, String role)
 			User user1 = new User(null, "user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			User user2 = new User(null, "admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");

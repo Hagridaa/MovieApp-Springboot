@@ -8,21 +8,12 @@
 <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" />
 
 </head>
-<body>
-<div class="col-md-4">
-		<h1 th:text = "#{h1.text}">Movies</h1>
+<body class="text-center">
+<div class="col-md-12">
+		<h1 th:text = "#{h1.text}">MovieApp</h1>
 	</div>
-	<!--  <div class="col-md-4">
-		<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-
-	<div class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-danger"/>
-		</form>	</div>-->
-		
-		<!-- <form th:action="@{/login}" method="post">>
-			<input type="submit" value="Sign In" class="btn btn-danger"/>
-		</form></div> -->
+	
+		<a href="/feedback" class="btn btn-success">Feedback</a>
 		<a href="/login" class="btn btn-success">Login</a>
 		 <a href="?language=fi" class="btn btn-success">Vaihda kieli FI</a>
 		 <a href="?language=" class="btn btn-success">Change language US</a>
@@ -31,22 +22,19 @@
 	<table class="table table-striped">
 		<tr>
 			<th>id</th>
-			<th>name</th>
-			<th>category</th>
-			<th sec:authorize="hasAuthority('ADMIN')"> </th>
+			<th th:text = "#{name.text}">name</th>
+			<th th:text = "#{category.text}">category</th>
 		</tr>
 
 		<tr th:each="movie : ${movies}">
 			<td th:text="${movie.id}">id</td>
 			<td th:text="${movie.name}">title</td>
 			<td th:text="${movie.category.name}"></td>
-			
-			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-danger">Edit</a></td>	
-			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>	
+		
 		</tr>
 		
 	</table>
-	<!--  <a href="addmovie" class="btn btn-success">Add Movie</a>-->
+	
 	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 	

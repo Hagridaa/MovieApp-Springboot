@@ -14,8 +14,6 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-		//entity for application endusers
-	//Attributes: username (unique), password,role
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		@Column(name = "id",nullable = false, updatable = false)
@@ -70,13 +68,6 @@ public class User {
 			return "User [id=" + id + ", username=" + username + ", passwordHass=" + passwordHass + ", role=" + role
 					+ "]";
 		}
-		
-//		public User(String username, String password, String role) {
-//			
-//			this.username = username;
-//			this.passwordHass = password;
-//			this.role = role;
-//		}
 
 		
 	}

@@ -6,18 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Answer {
+public class Feedback {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String text;
-	public Answer(Long id, String text) {
+	
+	public Feedback(Long id, String text) {
 		super();
 		this.id = id;
 		this.text = text;
 	}
-	public Answer() {
+	public Feedback() {
 		super();
 	}
 	public Long getId() {
@@ -34,7 +35,7 @@ public class Answer {
 	}
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", text=" + text + "]";
+		return "Feedback [id=" + id + ", text=" + text + "]";
 	}
 	
 	

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import movie.app.project.domain.Answer;
-import movie.app.project.domain.AnswerRepository;
+import movie.app.project.domain.Feedback;
+import movie.app.project.domain.FeedbackRepository;
 import movie.app.project.domain.CategoryRepository;
 import movie.app.project.domain.Movie;
 import movie.app.project.domain.MovieRepository;
@@ -36,6 +36,12 @@ public class MovieController {
 	@RequestMapping(value="/login")
     public String index() {	
         return "login";
+    }
+	
+	// Home page of REST services
+    @RequestMapping(value="/homepagerest", method = RequestMethod.GET)
+    public String getRestHome() {	
+    	return "homepagerest"; // resthomepage.html
     }
 	
 	@Autowired
@@ -114,8 +120,7 @@ public class MovieController {
 	@RequestMapping(value = "/editmovie",method = RequestMethod.POST)
 	public String update(Movie movie) {
 		log.info("Tallennetaan elokuva: " + movie.toString());
-		if
-		(movieRepository.existsById(movie.getId())) {
+		if (movieRepository.existsById(movie.getId())) {
 			log.info("Tallennetaan elokuva: " + movie.toString());
 				movieRepository.save(movie);
 		}
@@ -128,39 +133,44 @@ public class MovieController {
 		log.info("Haettava elokuva: " + name);
 		Optional<Movie> foundedMovie = movieRepository.findByName(name);
 		log.info("Löydetty elokuva: " + foundedMovie.toString());
-		model.addAttribute("foundedmovie", foundedMovie.get().getName());
+		if(foundedMovie.isPresent()) {
+			model.addAttribute("foundedmovie", foundedMovie.get().getName());
+		} else {
+			return "movielist";
+		}
+		
 	    return "movielist";
 	}
 	
 	@Autowired
-	AnswerRepository answerRepository;
+	FeedbackRepository feedbackRepository;
 	
 	//palautteen anto, answer
 	// tyhjän lomakkeen muodostaminen
 	@RequestMapping (value = "/feedback", method = RequestMethod.GET)
 	public String getNewFeedbackForm(Model model) {
-		model.addAttribute("answer", new Answer()); //luodaan tyhjä vastaus- olio
+		model.addAttribute("feedback", new Feedback()); //luodaan tyhjä vastaus- olio
 		return "feedback";
 	}
 	
 	//palautteen tietojen vastaanotto ja tallennus kantaa (H2)
 	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
-	public String add(Answer answer, BindingResult bindingResult, Model model) {
+	public String add(Feedback feedback, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("answer",answer);
+			model.addAttribute("feedback",feedback);
 			return "feedback";
 		}
-			answerRepository.save(answer);
+			feedbackRepository.save(feedback);
 			return ("redirect:feedbacklist");
 	}
 	
 	//vastausten listaaminen
 		@RequestMapping(value = "/feedbacklist" , method = RequestMethod.GET)
-		public String getAnswers(Model model) {
-			List<Answer> answers = (List<Answer>) answerRepository.findAll();//haeta tietokannasta vastaukset
+		public String getFeedbacks(Model model) {
+			List<Feedback> feedbacks = (List<Feedback>) feedbackRepository.findAll();//haeta tietokannasta vastaukset
 			//välitä modelin avulla elokuvalista templatelle nähtävästi
-			model.addAttribute("answers", answers);// välitetään lista templatelle model-olion avulla
-			System.out.println("tietokannasta vastaukset ovat" + answers);
+			model.addAttribute("feedbacks", feedbacks);// välitetään lista templatelle model-olion avulla
+			System.out.println("tietokannasta vastaukset ovat" + feedbacks);
 			return "feedbacklist";
 }
 }
